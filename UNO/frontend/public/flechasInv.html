@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta con Imagen Cambiable</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        /* Configuración del iframe para actuar como fondo */
+        .fondo-html {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: -1;  /* Para que quede debajo de todo */
+        }
+
+        .fondo-imagen {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 350px;
+            height: 400px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .rotar-derecha {
+            animation: rotarDerecha 5s linear infinite;
+        }
+
+        .rotar-izquierda {
+            animation: rotarIzquierda 5s linear infinite;
+        }
+
+        @keyframes rotarDerecha {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotarIzquierda {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .fondo-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.7;
+            margin-top: 600px;
+        }
+
+        .carta {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .carta img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 20px;
+            z-index: 2;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FONDO HTML INCRUSTADO -->
+    <iframe src="\fondo_pag_principal.html" class="fondo-html"></iframe>
+
+    <div class="container">
+        <div class="fondo-imagen">
+            <img id="imagenFondo" class="rotar-izquierda" src="/Fotos/Giro Izquierda.png" alt="Giro Derecha">
+        </div>
+        <!-- La carta ahora es una imagen constante -->
+        <!--<div class="carta">
+            <img src="C:\Users\Enrique\Desktop\cartas_azules\0_azul.png" alt="Imagen de Carta">
+        </div>-->
+    </div>
+
+    <!--<button onclick="cambiarImagen()">Cambiar Imagen</button>-->
+
+    <script>
+        function cambiarImagen() {
+            const imagen = document.getElementById("imagenFondo");
+            
+            const imagen1 = "/Fotos/Giro Derecha.png";
+            const imagen2 = "/Fotos/Giro Izquierda.png";
+            
+            if (imagen.src.includes(imagen1)) {
+                imagen.src = imagen2;
+                imagen.classList.remove('rotar-derecha');
+                imagen.classList.add('rotar-izquierda');
+            } else {
+                imagen.src = imagen1;
+                imagen.classList.remove('rotar-izquierda');
+                imagen.classList.add('rotar-derecha');
+            }
+        }
+    </script>
+
+</body>
+</html>

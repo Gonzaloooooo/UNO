@@ -1,0 +1,27 @@
+.final{
+    background-color: white;
+    padding: 1vh;
+}
+.jugadorPuntos{
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    background-color: black;
+    color: white;
+    width: 30vw;
+    height: 5vh;
+    margin: 2vh;
+}
+
+.leftPuntos{
+    width: 50%;
+}
+
+.rightPuntos{
+    width: 50%;
+}
+
+.winner{
+    width: 100%;
+    transform: scale(1.05);
+}

@@ -1,0 +1,38 @@
+/* Contenedor principal del cuadrado */
+.contenedor-carta {
+    width: 400px; /* Aumentamos el tamaño */
+    height: 400px; /* Hacemos que sea más grande */
+    background-color: #000000; /* Fondo negro */
+    border: 5px solid #ffffff; /* Borde blanco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Coloca el logo y el botón en columna */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para el contenedor */
+}
+
+/* Estilo del logo */
+.logo img {
+    width: 150px; /* Aumentamos el tamaño del logo */
+    height: auto;
+    margin-bottom: 20px; /* Separación entre el logo y el botón */
+}
+
+/* Estilo del botón "Jugar" */
+.boton-jugar {
+    width: 150px; /* Aumentamos el tamaño del botón */
+    padding: 10px;
+    font-size: 18px;
+    background-color: #ff4b2b; /* Fondo rojo del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.boton-jugar:hover {
+    background-color: #ffcc00; /* Cambia a amarillo cuando pasa el mouse */
+}

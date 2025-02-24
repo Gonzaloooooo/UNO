@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rombo Interactivo</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+
+    .container {
+      position: relative;
+      background-color: #dcdcdc; /* Fondo gris claro */
+      padding: 50px 40px 100px; /* Ampliado padding-bottom */
+      border-radius: 15px; /* Borde redondeado */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 80px; /* Mayor separación entre la frase y el rombo */
+      font-size: 28px;
+      color: #333;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .rombo {
+      width: 250px;
+      height: 250px;
+      background-color: black; /* Fondo negro */
+      position: relative;
+      transform: rotate(45deg);
+      transition: transform 0.3s;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      border: 10px solid black; /* Borde negro más grueso */
+      border-radius: 15px; /* Borde redondeado */
+      margin-top: 40px; /* Aumentado margen superior para separarlo más */
+    }
+
+    .rombo div {
+      position: absolute;
+      width: 45%;
+      height: 45%;
+      transition: transform 0.3s ease, z-index 0s;
+      border-radius: 8px;
+    }
+
+    .rojo {
+      background-color: red;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .azul {
+      background-color: blue;
+      top: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .amarillo {
+      background-color: yellow;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .verde {
+      background-color: green;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .rojo:hover, .azul:hover, .amarillo:hover, .verde:hover {
+      transform: scale(1.3);
+      z-index: 2;
+    }
+
+    .rojo:hover {
+      z-index: 2;
+    }
+
+    .azul:hover {
+      z-index: 2;
+    }
+
+    .amarillo:hover {
+      z-index: 2;
+    }
+
+    .verde:hover {
+      z-index: 2;
+    }
+  </style>
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".rombo div").forEach(div => {
+      div.addEventListener("click", (event) => {
+        const color = event.target.classList[0]; // Captura el color elegido
+        window.parent.postMessage(color, "*"); // Envía el color a VistaInGame.js
+      });
+    });
+  });
+</script>
+<body>
+  <div class="container">
+    <h1>¿A qué color quieres cambiar?</h1>
+    <div class="rombo">
+      <div class="rojo"></div>
+      <div class="azul"></div>
+      <div class="amarillo"></div>
+      <div class="verde"></div>
+    </div>
+  </div>
+</body>
+</html>

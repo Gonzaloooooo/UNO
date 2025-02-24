@@ -1,0 +1,121 @@
+/* Contenedor principal */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../../public/Fotos/Fondo_uno.png"); /* Cambia esta ruta si es necesario */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Fija la altura al tamaño de la ventana */
+  overflow: hidden; /* Evita el scroll en la página */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Contenedor negro */  
+.inicio-sesion-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* Ajusta el tamaño del contenedor negro */
+  width: 90vw; /* Ajusta el ancho */
+  max-width: 500px; /* No permitir que el ancho sea mayor de 500px */
+  max-height: 600px; /* No permitir que el alto sea mayor de 600px */
+  overflow-y: auto; /* Habilitar scroll interno si hay mucho contenido */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8); /* Fondo negro translúcido */
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Títulos */
+h1, h2 {
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Inputs y Selectores */
+.input-group,
+.image-selector {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-group label,
+.image-selector label {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group input,
+.image-selector select {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Botones */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: #ff4b2b;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 10px 0;
+  width: 100%;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Lista de jugadores añadidos */
+.players-list {
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+  color: white;
+}
+
+.players-list h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.players-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.players-list li {
+  margin: 5px 0;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+/* Opciones deshabilitadas en el selector */
+.image-selector select option:disabled {
+  background-color: lightgray;
+  color: gray;
+}

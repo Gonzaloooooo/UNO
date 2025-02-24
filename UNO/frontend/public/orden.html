@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Jugadores</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #eeeeee;
+            margin: 0;
+        }
+        .card {
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            width: 220px; /* Tabla más pequeña */
+            text-align: center;
+            position: absolute;
+            top: 10px; /* Más arriba */
+            right: 10px; /* Más a la derecha */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px; /* Menor margen */
+        }
+        th, td {
+            padding: 6px; /* Menos padding */
+            text-align: center;
+            font-size: 12px; /* Texto más pequeño */
+        }
+        th {
+            background-color: #ff6f00;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        td {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px; /* Bordes más redondeados */
+        }
+        .color-box {
+            width: 15px; /* Más pequeño */
+            height: 15px;
+            display: inline-block;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        .carta {
+            width: 30px; /* Cartas más pequeñas */
+            height: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            position: relative;
+            font-size: 14px; /* Fuente más pequeña */
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            line-height: 40px;
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 240, 240, 0.6));
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .carta span {
+            display: block;
+            font-size: 18px; /* Número más pequeño */
+            color: #ff6f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Colores</th>
+                    <th>Cartas</th>
+                </tr>
+            </thead>
+            <tbody id="players"></tbody>
+        </table>
+    </div>
+    
+    <script>
+        const jugadores = ["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4"];
+        const colores = ["red", "blue", "green", "yellow"];
+        const cartas = [5, 3, 7, 2]; // Número de cartas para cada jugador
+        
+        function mostrarJugadores() {
+            const contenedor = document.getElementById("players");
+            contenedor.innerHTML = "";
+            
+            // Se usan 4 jugadores, con 4 colores y 4 números de cartas
+            for (let i = 0; i < 4; i++) {
+                let tr = document.createElement("tr");
+                
+                // Columna para el nombre
+                let tdNombre = document.createElement("td");
+                tdNombre.textContent = jugadores[i];
+                tr.appendChild(tdNombre);
+                
+                // Columna para el color
+                let tdColor = document.createElement("td");
+                let colorBox = document.createElement("span");
+                colorBox.className = "color-box";
+                colorBox.style.backgroundColor = colores[i];
+                tdColor.appendChild(colorBox);
+                tr.appendChild(tdColor);
+                
+                // Columna para las cartas
+                let tdCartas = document.createElement("td");
+                let carta = document.createElement("div");
+                carta.className = "carta";
+                carta.innerHTML = `<span>${cartas[i]}</span>`; // Número de cartas dentro de la carta
+                tdCartas.appendChild(carta);
+                tr.appendChild(tdCartas);
+                
+                contenedor.appendChild(tr);
+            }
+        }
+        
+        mostrarJugadores();
+    </script>
+</body>
+</html>

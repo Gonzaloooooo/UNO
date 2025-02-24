@@ -1,0 +1,49 @@
+#OrdenTurno h2{
+    color: black;
+}
+#OrdenTurno{
+    position: absolute;
+    background-color: white;
+    border-radius:8%;
+    top:5%;
+    left: 80%;
+    min-height: fit-content;
+    width: 15vw;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+}
+
+.jugador{
+    background-color: black;
+    color: white;
+    height: 4vh;
+    width: 80%;
+    margin: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100vh;
+}
+
+.left{
+    width: 35%;
+}
+
+.right{
+    width: 65%;
+}
+
+.wrapperJugador{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    width: 100%;
+}
+
+#selected *{
+    transform: scale(1.1);
+}

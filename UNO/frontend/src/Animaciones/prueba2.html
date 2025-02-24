@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas UNO Animadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-container { perspective: 1000px; }
+        .card {
+            width: 120px;
+            height: 180px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-in-out, border 0.5s ease;
+            border: 2px solid transparent;
+        }
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .card-front { background: center/cover; }
+        .card-back { background: center/cover; transform: rotateY(180deg); }
+        .grouped { transform: translateX(0); }
+        .flipped { transform: rotateY(180deg); }
+        .expanded { transform: translateX(calc(var(--i) * 25px)); }
+        .card:hover { border-color: yellow; transform: translateY(-50px) scale(1.1); }
+        #cardsContainer { position: relative; width: 100%; height: 100%; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center h-screen bg-gray-100">
+
+    <!-- Botón para la animación y cambio de JSON -->
+    <button id="toggleButton" 
+        class="mb-6 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600">
+        Iniciar Animación
+    </button>
+
+    <!-- Mostrar número de cartas -->
+    <p id="cartasCount" class="text-lg font-semibold mb-4"></p>
+
+    <!-- Contenedor de cartas -->
+    <div id="cardsContainer" class="relative flex justify-center items-center w-full h-3/4"></div>
+
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const cartasCount = document.getElementById('cartasCount');
+
+        let isGrouped = false; // Controla si las cartas están agrupadas
+        let currentJsonIndex = 0; // Índice para alternar JSONs
+
+        // JSON de cartas (sets predefinidos)
+        const cardSets = [
+            [ // Primer conjunto de cartas
+                { "front": "cartas/cartas_uno_amarillas/1.png", "back": "cartas/cartas_uno_amarillas/reverso.png" },
+                { "front": "cartas/cartas_uno_amarillas/2.png", "back": "cartas/cartas_uno_amarillas/reverso.png" },
+                { "front": "cartas/cartas_uno_amarillas/3.png", "back": "cartas/cartas_uno_amarillas/reverso.png" }
+            ],
+            [ // Segundo conjunto de cartas
+                { "front": "cartas/cartas_uno_verdes/4.png", "back": "cartas/cartas_uno_verdes/reverso.png" },
+                { "front": "cartas/cartas_uno_verdes/5.png", "back": "cartas/cartas_uno_verdes/reverso.png" },
+                { "front": "cartas/cartas_uno_verdes/6.png", "back": "cartas/cartas_uno_verdes/reverso.png" }
+            ]
+        ];
+
+        // Función para obtener el JSON de cartas actual
+        function obtenerCartasDesdeJSON() {
+            return cardSets[currentJsonIndex];
+        }
+
+        // Crear cartas dinámicamente en el DOM
+        function createCards(cardsData, shouldExpand = false) {
+            cardsContainer.innerHTML = ''; // Limpiar contenedor
+            cartasCount.textContent = `Número de cartas: ${cardsData.length}`; // Mostrar cantidad de cartas
+
+            cardsData.forEach((cardData, index) => {
+                const cardContainer = document.createElement('div');
+                cardContainer.classList.add('card-container');
+
+                const card = document.createElement('div');
+                card.classList.add('card', 'grouped'); // Inicialmente agrupadas
+                card.style.setProperty('--i', index);
+
+                const front = document.createElement('div');
+                front.classList.add('card-face', 'card-front');
+                front.style.backgroundImage = `url(${cardData.front})`;
+
+                const back = document.createElement('div');
+                back.classList.add('card-face', 'card-back');
+                back.style.backgroundImage = `url(${cardData.back})`;
+
+                card.appendChild(front);
+                card.appendChild(back);
+                cardContainer.appendChild(card);
+                cardsContainer.appendChild(cardContainer);
+            });
+
+            if (shouldExpand) {
+                // Esperamos un breve momento antes de expandir para asegurar transiciones
+                setTimeout(() => {
+                    flipCards(); // Girar cartas antes de expandir
+                    setTimeout(expandCards, 500);
+                }, 10);
+            }
+        }
+
+        // Función para agrupar las cartas
+        function groupCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.classList.remove('expanded', 'flipped');
+                card.classList.add('grouped');
+            });
+        }
+
+        // Función para girar las cartas
+        function flipCards() {
+            const cards = document.querySelectorAll('.card');
+            setTimeout(() => {
+                cards.forEach(card => card.classList.add('flipped'));
+            }, 500);
+        }
+
+        // Función para cambiar las cartas y expandirlas
+        function changeAndExpandCards() {
+            setTimeout(() => {
+                // Cambia al siguiente JSON de cartas
+                currentJsonIndex = (currentJsonIndex + 1) % cardSets.length;
+                const newCards = obtenerCartasDesdeJSON();
+
+                // Reemplaza las cartas con el nuevo set y asegúrate de que giren antes de expandirse
+                createCards(newCards, true);
+            }, 1000);
+        }
+
+        // Función para expandir las cartas después del cambio
+        function expandCards() {
+            const cards = document.querySelectorAll('.card');
+            setTimeout(() => {
+                cards.forEach((card, index) => {
+                    card.classList.remove('grouped', 'flipped');
+                    card.classList.add('expanded');
+                    card.style.setProperty('--i', index);
+                });
+            }, 10);
+        }
+
+        // Función para iniciar la animación y cambiar JSON
+        function animateCards() {
+            if (!isGrouped) {
+                groupCards();     // PASO 1: AGRUPAR LAS CARTAS
+                flipCards();      // PASO 2: GIRAR LAS CARTAS
+                changeAndExpandCards();  // PASO 3: CAMBIAR JSON Y EXPANDIR NUEVAS CARTAS
+            } else {
+                // Si ya están agrupadas, simplemente expandirlas con giro incluido
+                flipCards();
+                setTimeout(expandCards, 500);
+            }
+
+            isGrouped = !isGrouped;
+        }
+
+        // Evento para iniciar la animación y cambiar JSON
+        toggleButton.addEventListener('click', animateCards);
+
+        // Cargar cartas iniciales al abrir la página
+        createCards(obtenerCartasDesdeJSON(), true);
+    </script>
+
+</body>
+</html>

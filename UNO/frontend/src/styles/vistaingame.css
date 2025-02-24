@@ -1,0 +1,65 @@
+.tablero{
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+}
+
+.descartes{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    place-items: center;
+}
+
+.hand{
+    height: 40%;
+    width: 100%;
+    /*background-color: gray;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que el modal esté encima de otros elementos */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%; /* O ajusta según el tamaño que prefieras */
+    height: 80%; /* O ajusta según el tamaño que prefieras */
+    position: relative;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Elimina el borde del iframe */
+}
+
+/* vistaingame.css */
+
+.robar-carta {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+}
+
+.robar-carta img {
+    width: 100px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+}

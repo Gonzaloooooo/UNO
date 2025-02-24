@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas UNO Animadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Contenedor 3D */
+        .card-container {
+            perspective: 1000px;
+        }
+
+        /* Estilo base de la carta */
+        .card {
+            width: 120px;
+            height: 180px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-in-out, z-index 0.5s ease-in-out, border 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        /* Lados de la carta */
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Cara frontal */
+        .card-front {
+            background: url('cartas/cartas_uno_amarillas/reversa.png') center/cover;
+        }
+
+        /* Cara trasera */
+        .card-back {
+            background: url('cartas/cartas_uno_amarillas/reverso.png') center/cover;
+            transform: rotateY(180deg);
+        }
+
+        /* Estado: agrupadas (sin girar aún) */
+        .grouped {
+            transform: translateX(0);
+            z-index: 1;
+        }
+
+        /* Estado: agrupadas y giradas */
+        .grouped.flipped {
+            transform: rotateY(180deg) translateX(0);
+        }
+
+        /* Estado: expandidas */
+        .expanded {
+            transform: translateX(calc(var(--i) * 25px));
+            z-index: 0;
+        }
+
+        /* Hover levanta la carta */
+        .card:hover {
+            border-color: yellow;
+            transform: translateY(-50px) translateX(calc(var(--i) * 25px)) scale(1);
+        }
+
+        #cardsContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center h-screen bg-gray-100">
+
+    <!-- Botón -->
+    <button id="toggleButton" 
+        class="mb-6 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600">
+        Agrupar/Expandir Cartas
+    </button>
+
+    <!-- Contenedor de cartas -->
+    <div id="cardsContainer" class="relative flex justify-center items-center w-full h-3/4">
+        <!-- Generación dinámica de cartas -->
+    </div>
+
+    <script>
+        // Referencias a elementos
+        const toggleButton = document.getElementById('toggleButton');
+        const cardsContainer = document.getElementById('cardsContainer');
+
+        // Rutas de imágenes para las cartas amarillas y verdes
+        const yellowCards = [
+            'cartas/cartas_uno_amarillas/reversa.png',
+            'cartas/cartas_uno_amarillas/reverso.png'
+        ];
+        const greenCards = [
+            'cartas/cartas_uno_verdes/chocho.png',
+            'cartas/cartas_uno_amarillas/reverso.png'
+        ];
+
+        let currentSet = yellowCards; // Empezamos con las amarillas
+
+        // Crear 12 cartas dinámicamente
+        for (let i = 0; i < 12; i++) {
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card-container');
+            
+            const card = document.createElement('div');
+            card.classList.add('card', 'expanded');
+            card.style.setProperty('--i', i);
+
+            const front = document.createElement('div');
+            front.classList.add('card-face', 'card-front');
+            front.style.backgroundImage = `url(${currentSet[0]})`;
+
+            const back = document.createElement('div');
+            back.classList.add('card-face', 'card-back');
+            back.style.backgroundImage = `url(${currentSet[1]})`;
+
+            card.appendChild(front);
+            card.appendChild(back);
+            cardContainer.appendChild(card);
+            cardsContainer.appendChild(cardContainer);
+        }
+
+        const cards = document.querySelectorAll('.card');
+        let isGrouped = false;
+        let isYellow = true; // Controla qué set de cartas está activo
+
+        // Alternar animación de cartas con retraso en el giro y cambio de imagen
+        toggleButton.addEventListener('click', () => {
+            if (!isGrouped) {
+                // Paso 1: Agrupar las cartas
+                cards.forEach(card => {
+                    card.classList.remove('expanded', 'flipped');
+                    card.classList.add('grouped');
+                });
+
+                // Paso 2: Después de 0.5s, girarlas
+                setTimeout(() => {
+                    cards.forEach(card => card.classList.add('flipped'));
+                }, 500);
+
+                // Paso 3: Después de 1s, cambiar imágenes y expandirlas
+                setTimeout(() => {
+                    // Alternar entre amarillo y verde
+                    currentSet = isYellow ? greenCards : yellowCards;
+                    isYellow = !isYellow;
+
+                    cards.forEach((card, index) => {
+                        const front = card.querySelector('.card-front');
+                        const back = card.querySelector('.card-back');
+
+                        front.style.backgroundImage = `url(${currentSet[0]})`;
+                        back.style.backgroundImage = `url(${currentSet[1]})`;
+
+                        card.classList.remove('grouped', 'flipped');
+                        card.classList.add('expanded');
+                        card.style.setProperty('--i', index);
+                    });
+                }, 1000);
+            } else {
+                // Si ya están agrupadas, simplemente expandirlas
+                cards.forEach((card, index) => {
+                    card.classList.remove('grouped', 'flipped');
+                    card.classList.add('expanded');
+                    card.style.setProperty('--i', index);
+                });
+            }
+
+            isGrouped = !isGrouped;
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+

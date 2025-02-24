@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: url("../../public/Fotos/Fondo_uno.png") no-repeat center center/cover;
+    text-align: center; /* Esto asegura que el texto y los botones se centren */
+}
+
+h1 {
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+}
+
+.cards-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;  /* Asegura que las cartas estén centradas horizontalmente */
+    margin-bottom: 20px;
+}
+
+.card {
+    width: 100px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover, .card.selected {
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.card[data-number="2"] {
+    background-image: url('https://lh3.googleusercontent.com/d/1pgy39deIUTeC228NG0Jt99Bx9T_jiJxx=s220?authuser=0');
+}  
+
+.card[data-number="3"] {
+    background-image: url('https://lh3.googleusercontent.com/d/1yYiqwnP8gKclzP6CqgrQQAe1SManoCpZ=s220?authuser=0');
+}
+  
+
+.card[data-number="4"] {
+    background-image: url('https://lh3.googleusercontent.com/d/1XefCb2L0MjOFMZ4Kr-qSDAeRhYes5cbY=s220?authuser=0');
+}
+
+/* Estilo para el div de fondo negro con borde blanco */
+.fondo-carta {
+    width: 400px; /* Tamaño ajustado */
+    height: 500px; /* Tamaño ajustado */
+    background-color: #000; /* Fondo negro */
+    border: 3px solid white; /* Borde blanco */
+    border-radius: 20px; /* Bordes redondeados */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para darle profundidad */
+    text-align: center;
+}
+
+/* Logo de UNO */
+.fondo-carta .logo img {
+    width: 150px; /* Logo más grande */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Estilo del botón "Jugar" dentro del fondo */
+.fondo-carta .boton-jugar {
+    width: 140px;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #ff4b2b; /* Rojo para el botón */
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px; /* Separación del logo */
+}
+
+.fondo-carta .boton-jugar:hover {
+    background-color: #ffcc00; /* Amarillo UNO en el hover */
+}
+
+/* Estilos adicionales si es necesario */
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
